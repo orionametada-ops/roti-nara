@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Toko roti untuk kamu</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Dancing+Script:wght@600;700&family=Gaegu:wght@400;700&family=Special+Elite&display=swap">
+<style>
+:root{--choc:#5b3a29;--cream:#fff3dc;--pink:#f6c9cf;--rose:#b5546b;--crust:#c98a4b}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Special Elite','Courier New',monospace;color:var(--choc);background:var(--cream);overflow-x:hidden}
+.script{font-family:'Caveat','Brush Script MT',cursive}
+
+/* ---------- Layar 1: depan toko (pintu benar-benar terbuka) ---------- */
+#intro{--sw:max(100vw,calc(100dvh*1.3237));position:fixed;inset:0;z-index:20;background:#e9c9a4;overflow:hidden;transition:opacity 1.2s .2s}
+#intro.off{opacity:0;pointer-events:none}
+#stage{position:absolute;left:50%;top:50%;width:var(--sw);aspect-ratio:736/556;background:url(depan.jpg) center/100% 100%;transform:translate(-50%,-50%) scale(1);transform-origin:48.4% 68.3%;transition:transform 2.4s cubic-bezier(.55,0,.75,.4) 1.3s}
+#intro.open #stage{transform:translate(-50%,-50%) scale(4.2)}
+#dr{position:absolute;left:33.15%;top:40.65%;width:30.43%;height:55.22%;perspective:var(--sw);border:calc(var(--sw)*.003) solid #b8913a;box-sizing:border-box;background:#2b1a10}
+#inside{position:absolute;inset:0;overflow:hidden;background:radial-gradient(ellipse at 50% 60%,#ffe2a8 0%,#f2b872 40%,#9a5a30 100%)}
+#inside:before{content:'';position:absolute;left:0;right:0;top:0;height:22%;background:linear-gradient(#5b3a29,transparent);opacity:.55}
+.shelf{position:absolute;left:8%;right:8%;height:calc(var(--sw)*.004);background:#6b4128;box-shadow:0 calc(var(--sw)*.003) calc(var(--sw)*.006) rgba(0,0,0,.35)}
+.shelf span{position:absolute;bottom:100%;left:0;right:0;display:flex;justify-content:space-around;font-size:calc(var(--sw)*.026);line-height:1}
+#counter{position:absolute;left:0;right:0;bottom:0;height:18%;background:linear-gradient(#8a5231,#5b3a29);border-top:calc(var(--sw)*.004) solid #d9a35e}
+#counter span{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);font-size:calc(var(--sw)*.05);line-height:1}
+.dd{position:absolute;top:0;bottom:0;width:50.45%;background-size:100% 100%;backface-visibility:visible;transition:transform 1.7s cubic-bezier(.3,.1,.2,1) .55s;box-shadow:inset 0 0 12px rgba(0,0,0,.4)}
+#dl{left:0;background-image:url(pintu-kiri.jpg);transform-origin:0 50%}
+#dk{right:0;width:49.55%;background-image:url(pintu-kanan.jpg);transform-origin:100% 50%}
+#intro.open #dl{transform:rotateY(78deg)}
+#intro.open #dk{transform:rotateY(-78deg)}
+#sign{position:absolute;left:50%;top:44%;z-index:3;width:calc(var(--sw)*.15);height:calc(var(--sw)*.075);margin-left:calc(var(--sw)*-.075);perspective:600px;transform-origin:50% 0;animation:sw 3s ease-in-out infinite alternate;transition:opacity .5s .9s}
+#sign div{position:absolute;inset:0;display:grid;place-items:center;font-size:calc(var(--sw)*.024);border:calc(var(--sw)*.0035) solid #4a2c1a;border-radius:calc(var(--sw)*.01);backface-visibility:hidden;transition:transform .6s}
+#sign .f{background:#fff3dc}#sign .b{background:#f6c9cf;transform:rotateY(180deg)}
+#intro.open #sign{opacity:0;animation:none}
+#intro.open #sign .f{transform:rotateY(-180deg)}#intro.open #sign .b{transform:rotateY(0)}
+#tap{position:absolute;left:0;right:0;bottom:4%;text-align:center;font-size:1.9rem;color:#fff;text-shadow:0 2px 6px #4a2c1a;transition:opacity .5s;z-index:2;animation:pulse 1.6s ease-in-out infinite alternate}
+@keyframes pulse{from{transform:scale(1)}to{transform:scale(1.06)}}
+#glow{position:absolute;inset:0;background:radial-gradient(circle at 48% 68%,#fff2c9,transparent 55%);opacity:0;transition:opacity 1.4s 2.2s;pointer-events:none}
+#intro.open #glow{opacity:1}
+
+/* ---------- Layar 2: isi toko ---------- */
+#book{position:relative;min-height:100%;padding:28px 16px 90px;background:#f8d9c9 top center/100% auto repeat-y;opacity:0;transition:opacity 1.5s}
+#book.on{opacity:1}
+.wrap{max-width:460px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr);gap:28px;position:relative;z-index:1}
+h1{font-size:3.2rem;text-align:center;line-height:1;color:var(--rose)}
+.sub{text-align:center;margin-top:-14px;font-size:1.6rem}
+.card{background:var(--cream);border-radius:16px;padding:16px;box-shadow:0 6px 16px rgba(91,58,41,.25);border:2px dashed #e0b88a}
+.hero{background:#f3e3c8 url(kertas-bunga.jpg) center/cover;border-radius:14px;padding:34px 16px 30px;box-shadow:0 6px 16px rgba(91,58,41,.25)}
+.hero .sub{margin-top:6px;color:#7a4a2c}
+.t1{transform:rotate(-1.5deg)}.t2{transform:rotate(1.2deg)}
+.tag{font-size:1.6rem;color:var(--rose);margin-bottom:6px}
+.song{background:#5b3a29;color:#fff3dc;display:flex;gap:12px;align-items:center;border-color:#c98a4b}
+.cover{width:60px;height:60px;border-radius:8px;background:#f3d9b8;display:grid;place-items:center;font-size:1.6rem;color:#5b3a29;flex:none}
+.song b{display:block;font-size:1.1rem}
+.song a{margin-left:auto;background:#fff3dc;color:#5b3a29;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;text-decoration:none}
+.voice{display:flex;align-items:center;gap:12px}
+#pb{width:50px;height:50px;border-radius:50%;border:0;background:#b5546b;color:#fff;font-size:1.2rem;flex:none}
+.bars{display:flex;gap:3px;align-items:center;height:30px;flex:1}
+.bars i{width:3px;background:var(--crust);border-radius:2px;height:30%;opacity:.5}
+.bars.play i{animation:eq .8s infinite alternate;opacity:1}
+@keyframes eq{to{height:100%}}
+.receipt{background:#fffdf6;border:0;border-radius:2px;clip-path:polygon(0 0,100% 0,100% 98%,96% 100%,92% 98%,88% 100%,84% 98%,80% 100%,76% 98%,72% 100%,68% 98%,64% 100%,60% 98%,56% 100%,52% 98%,48% 100%,44% 98%,40% 100%,36% 98%,32% 100%,28% 98%,24% 100%,20% 98%,16% 100%,12% 98%,8% 100%,4% 98%,0 100%);padding-bottom:26px}
+#struk{white-space:pre-wrap;line-height:1.7;font-size:.92rem;min-height:3em}
+.btn{display:block;width:100%;margin-top:12px;padding:12px;border:0;border-radius:10px;background:var(--rose);color:#fff;font:inherit;font-size:1rem}
+.row{min-width:0;display:flex;gap:16px;overflow-x:auto;padding:10px 4px 18px;scroll-snap-type:x mandatory}
+.pol{flex:none;width:200px;background:#fff;padding:10px 10px 6px;box-shadow:0 4px 12px rgba(0,0,0,.25);scroll-snap-align:center}
+.pol:nth-child(odd){transform:rotate(-3deg)}.pol:nth-child(even){transform:rotate(2.5deg)}
+.pol .ph{height:200px;background:#f6d9c4;display:grid;place-items:center;font-size:.8rem;text-align:center;overflow:hidden}
+.pol img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.pol p{text-align:center;font-size:1.45rem;padding-top:4px}
+.vid{aspect-ratio:16/9;width:100%;border:0;border-radius:12px;background:#000}
+footer{text-shadow:0 0 8px #fff3dc,0 0 8px #fff3dc,0 0 4px #fff3dc;text-align:center;font-size:2rem;color:var(--rose)}
+
+/* stiker */
+.rak{position:relative;height:136px;margin:-8px 0;z-index:4}
+.rak:last-child{height:250px}
+.tg{top:16px;position:absolute;z-index:4;width:112px;padding:22px 8px 10px;background:#ecd0a3;border:2px dashed #b88a55;border-radius:8px;text-align:center;font-size:1.2rem;line-height:1.05;color:#5b3a29;cursor:pointer;box-shadow:0 5px 10px rgba(91,58,41,.3);transform-origin:50% -14px;animation:sw 3.2s ease-in-out infinite alternate}
+.tg:nth-of-type(2n){animation-delay:-1.4s}
+.tg:before{content:'';position:absolute;left:50%;top:7px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:#f8d9c9;border:2px solid #b88a55}
+.tg:after{content:'';position:absolute;left:50%;top:-16px;width:2px;height:24px;background:#9b7448}
+.tg i{display:block;font-style:normal;font-size:1.7rem;margin-bottom:2px}
+.tg.act{background:#f6c9cf;border-color:#b5546b}
+@keyframes sw{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+#win{position:fixed;inset:0;z-index:16;background:rgba(70,25,40,.6);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .35s}
+#win.on{opacity:1;pointer-events:auto}
+.pg{--w:min(100vw,56.27vh);position:relative;width:var(--w);aspect-ratio:736/1308;background:#f6d9e0 url(kertas-pesan.jpg) center/100% 100%;transform:translateY(26px) scale(.97);transition:transform .45s;box-shadow:0 10px 40px rgba(0,0,0,.45)}
+#win.on .pg{transform:none}
+#wt{position:absolute;left:38%;right:7%;top:17%;max-height:13%;overflow:hidden;font-family:'Dancing Script','Caveat',cursive;font-weight:700;font-size:calc(var(--w)*.062);line-height:1.05;color:#b5546b}
+#wb{position:absolute;left:11%;right:7%;top:32%;bottom:19%;overflow-y:auto;font-family:'Gaegu','Patrick Hand','Caveat',cursive;font-size:calc(var(--w)*.047);line-height:1.5;color:#5a2f3d;scrollbar-width:none;-webkit-mask-image:linear-gradient(transparent,#000 4%,#000 94%,transparent);mask-image:linear-gradient(transparent,#000 4%,#000 94%,transparent)}
+#wb::-webkit-scrollbar{display:none}
+#wb p{margin-bottom:.75em;white-space:pre-wrap}
+#wb p.aw{color:#b5546b;font-weight:700}
+#wx{position:absolute;right:3%;top:1.5%;width:40px;height:40px;border-radius:50%;border:0;background:rgba(181,84,107,.92);color:#fff;font-size:1.6rem;line-height:1;z-index:2}
+.wrap>div>.tag{text-shadow:0 0 8px #fff3dc,0 0 8px #fff3dc,0 0 4px #fff3dc}
+.chip{background:rgba(255,243,220,.92);padding:6px 10px;border-radius:12px;box-sizing:border-box}
+.stk{position:absolute;top:0;z-index:3;touch-action:none;cursor:grab;filter:drop-shadow(0 4px 4px rgba(91,58,41,.35));user-select:none;-webkit-user-drag:none}
+.stk img{width:100%;display:block;pointer-events:none}
+.miss{display:grid;place-items:center;aspect-ratio:1;border:2px dashed #b5546b;border-radius:10px;background:rgba(255,243,220,.85);color:#b5546b;font:11px/1.2 monospace;text-align:center;padding:4px;word-break:break-all}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+
+<section id="intro">
+  <div id="stage">
+    <div id="dr">
+      <div id="inside">
+        <div class="shelf" style="top:26%"><span>🥐🍞🥖🥐</span></div>
+        <div class="shelf" style="top:46%"><span>🧁🍰🍩🧁</span></div>
+        <div class="shelf" style="top:66%"><span>🥨🍪🥯🍪</span></div>
+        <div id="counter"><span>🎂</span></div>
+      </div>
+      <div class="dd" id="dl"></div><div class="dd" id="dk"></div>
+      <div id="sign" class="script"><div class="f">TUTUP</div><div class="b">BUKA</div></div>
+    </div>
+  </div>
+  <div id="glow"></div>
+  <p id="tap" class="script">Ketuk untuk masuk ke toko ♡</p>
+</section>
+
+<main id="book">
+  <div class="wrap">
+    <div class="hero"><h1 class="script" id="judul"></h1>
+    <p class="sub script" id="dari"></p>
+    <p class="sub script" style="font-size:1.3rem" id="ptj"></p></div>
+
+    <div class="card song t1"><div class="cover">♪</div>
+      <div><b id="lj"></b><span id="la"></span></div><a id="ll" target="_blank" rel="noopener">▶</a></div>
+
+    <div class="card voice t2"><button id="pb" aria-label="Putar suara">▶</button>
+      <div><b>Bel kasir</b><br><small id="pst">ketuk, ada suara untuk Nara</small></div>
+      <div class="bars" id="bars"></div><audio id="au" preload="none"></audio></div>
+
+    <div class="card receipt t1"><div class="tag script">Struk pesanan</div>
+      <div id="struk"></div>
+      <button class="btn" id="bs">Cetak struk</button></div>
+
+    <div><div class="tag script">Dari etalase kenangan</div><div class="row" id="fotos"></div></div>
+
+    <footer class="script" id="akhir"></footer>
+  </div>
+</main>
+<div id="win" role="dialog" aria-live="polite"><div class="pg"><div id="wt"></div><div id="wb"></div><button id="wx" aria-label="Tutup">×</button></div></div>
+<audio id="bgm" loop preload="auto"></audio>
+<button id="mute" aria-label="Musik" style="position:fixed;right:14px;top:14px;z-index:15;width:44px;height:44px;border-radius:50%;border:0;background:#b5546b;color:#fff;font-size:1.2rem;display:none">♪</button>
+
+<script>
+/* =====================================================
+   UBAH BAGIAN INI — cerita kalian
+   ===================================================== */
+const C = {
+  toko: "Toko Roti Cinta",
+  untuk: "Nara",
+  dari: "dipanggang khusus untukmu",
+  lagu: { judul: "Bergema Sampai Selamanya", artis: "Nadhif Basalamah",
+          link: "https://www.youtube.com/results?search_query=nadhif+basalamah+bergema+sampai+selamanya" },
+  suara: "suara.mp3",              // suaramu menyanyi untuk Nara
+  musik: "musik.mp3",             // musik latar setelah toko dibuka
+  lonceng: "lonceng.mp3",         // opsional, bunyi saat pintu dibuka
+  struk:
+`TOKO ROTI CINTA
+Pelanggan: Nara
+------------------------
+1  roti rasa sayang
+1  croissant rasa rindu
+1  pelukan (hangat)
+------------------------
+TOTAL: selamanya
+Bayar: sudah lunas
+oleh senyummu.
+
+Terima kasih sudah mampir,
+dan jangan pergi jauh-jauh.`,
+  foto: [
+    { src: "foto1.jpg", cap: "Manisnya hari itu" },
+    { src: "foto2.jpg", cap: "Kita di polaroid" },
+    { src: "foto3.jpg", cap: "Senyum favoritku" },
+    { src: "foto4.jpg", cap: "Cium-cium kecil" },
+    { src: "foto5.jpg", cap: "Hangat seperti roti" }
+  ],
+  akhir: "♡ aku sayang kamu ♡",
+  petunjuk: "Cari label kecil yang tergantung di toko, lalu tekan ♡",
+  // label pesan: rak = rak ke-berapa (0-6, dari atas), x = posisi kiri dalam %.
+  pesan: [
+    { judul: "surat.txt", ikon: "✉️", rak: 0, x: 40,
+      isi: [
+        "Selamat ulang tahun, sayangku. ❤️ Aku bersyukur bisa mengenalmu dan menjadi bagian dari hidupmu. Di hari spesialmu ini, aku berharap kamu selalu diberikan kesehatan, kebahagiaan, dan kemudahan dalam setiap langkahmu. Semoga semua hal yang selama ini kamu impikan perlahan bisa menjadi kenyataan.",
+        "Terima kasih sudah hadir dan memberikan warna dalam hidupku. Aku mungkin tidak sempurna, tapi aku ingin terus ada di sampingmu, menemanimu dalam segala keadaan. Tetaplah menjadi dirimu sendiri, jangan pernah kehilangan senyummu, dan ingatlah bahwa kamu begitu berharga bagiku. Aku sayang kamu. ❤️"
+      ] },
+    { judul: "kenapa kamu bintang", ikon: "⭐", rak: 1, x: 38,
+      awal: "Nara, ini alasannya:",
+      isi: [
+        "⭐ Di malam yang paling gelap pun, kamu yang paling terang buatku.",
+        "⭐ Senyummu bisa bikin hariku yang berantakan jadi rapi lagi.",
+        "⭐ Caramu bertanya bikin aku betah mendengarkanmu lama-lama.",
+        "⭐ Sikap lucumu itu obat paling ampuh buat capekku.",
+        "⭐ Kamu nggak perlu jadi sempurna. Kamu sudah paling pas buatku."
+      ] },
+    { judul: "gombalan", ikon: "💗", rak: 3, x: 38,
+      awal: "Peringatan: mengandung gombalan.",
+      isi: [
+        "💗 Nara, bedanya kamu sama kopi apa? Kopi bikin aku melek semalaman, kalau kamu bikin aku nggak bisa tidur gara-gara kangen.",
+        "💗 Kamu lagi sibuk apa? Soalnya dari tadi kamu sibuk banget mondar-mandir di pikiranku.",
+        "💗 Kamu pasti WiFi, ya? Soalnya tiap ada kamu, hatiku langsung terhubung.",
+        "💗 Aku nggak butuh peta. Asal tujuannya kamu, aku rela nyasar berkali-kali.",
+        "💗 Katanya jantung cuma berdetak buat hidup. Tapi punyaku berdetak lebih kencang tiap ingat kamu."
+      ] },
+    { judul: "dari hatiku", ikon: "💌", rak: 4, x: 40,
+      isi: [
+        "Nara, ada hal-hal yang sulit aku ucapkan langsung, jadi aku titip di sini.",
+        "Aku nggak janji jadi yang paling sempurna, tapi aku janji jadi yang paling sungguh-sungguh.",
+        "Kalau suatu hari kamu lelah, ingat ada aku yang siap jadi tempatmu pulang. Kamu nggak harus kuat sendirian.",
+        "Terima kasih sudah memilih aku, dan semoga kita selalu saling memilih, setiap hari.",
+        "Aku sayang kamu, Nara. 💖\n— Aster"
+      ] }
+  ],
+  // stiker: [nama file, rak (0-5), posisi kiri %, lebar px, turun px (opsional)] — rak = ruang kosong di antara kartu
+  stiker: [
+    ["topi-koki.png", 0, 4, 70], ["ceri-pita.png", 0, 74, 80],
+    ["donat.png", 1, 6, 64], ["kantong.png", 1, 76, 56],
+    ["buket.png", 2, 6, 56], ["pretzel.png", 2, 42, 60], ["stoples.png", 2, 74, 52],
+    ["kue-kering.png", 3, 6, 80], ["waffle.png", 3, 78, 64],
+    ["rolling-pin.png", 4, 4, 90], ["kue-hati.png", 4, 76, 70],
+    ["tart.png", 5, 6, 80], ["keranjang.png", 5, 36, 100], ["made-with-love.png", 5, 72, 70],
+    ["baked-with-love.png", 5, 18, 240, 130]
+  ]
+};
+
+/* ---------------- tidak perlu diubah ---------------- */
+const $ = id => document.getElementById(id);
+const bgm = $('bgm'); let musicOn = false;
+const resume = () => { if (musicOn) bgm.play().catch(() => {}); };
+$('mute').onclick = () => { musicOn = !musicOn; musicOn ? bgm.play().catch(() => {}) : bgm.pause(); $('mute').style.opacity = musicOn ? 1 : .5; };
+const bgOK = (file, el) => { const i = new Image(); i.onload = () => el.style.backgroundImage = `url(${file})`; i.src = file; };
+bgOK('latar.jpg', $('book'));
+
+$('judul').textContent = 'Untuk ' + C.untuk;
+$('dari').textContent = C.dari;
+$('lj').textContent = C.lagu.judul; $('la').textContent = C.lagu.artis; $('ll').href = C.lagu.link;
+$('akhir').textContent = C.akhir;
+
+let opened = false;
+$('intro').addEventListener('click', () => {
+  if (opened) return; opened = true;
+  $('tap').style.opacity = 0;
+  $('intro').classList.add('open');
+  { const l = new Audio(C.lonceng); l.volume = 1; l.play().catch(() => {}); }
+  bgm.src = C.musik; bgm.volume = .45; musicOn = true; bgm.play().catch(() => {});
+  $('mute').style.display = 'block';
+  setTimeout(() => { $('intro').classList.add('off'); $('book').classList.add('on'); }, 3900);
+});
+
+for (let i = 0; i < 22; i++) { const b = document.createElement('i'); b.style.animationDelay = (i * .07) + 's'; $('bars').append(b); }
+const au = $('au'); au.src = C.suara;
+$('pb').onclick = () => au.paused ? au.play().catch(() => $('pst').textContent = 'file ' + C.suara + ' belum ada') : au.pause();
+au.onplay = () => { bgm.pause(); $('pb').textContent = '❚❚'; $('bars').classList.add('play'); $('pst').textContent = 'sedang diputar…'; };
+au.onpause = au.onended = () => { resume(); $('pb').textContent = '▶'; $('bars').classList.remove('play'); $('pst').textContent = 'ketuk, ada suara untuk Nara'; };
+au.onerror = () => $('pst').textContent = 'taruh ' + C.suara + ' di folder ini';
+
+let typing = false;
+$('bs').onclick = () => {
+  if (typing) return; typing = true; $('bs').style.display = 'none';
+  let i = 0; const L = $('struk');
+  (function t() { L.textContent = C.struk.slice(0, ++i); if (i < C.struk.length) setTimeout(t, 34); })();
+};
+
+C.foto.forEach(f => {
+  const d = document.createElement('div'); d.className = 'pol';
+  d.innerHTML = '<div class="ph"></div><p class="script"></p>';
+  d.querySelector('.ph').textContent = f.src;
+  d.querySelector('p').textContent = f.cap;
+  const im = new Image(); im.alt = f.cap;
+  im.onload = () => { const ph = d.querySelector('.ph'); ph.textContent = ''; ph.append(im); };
+  im.src = f.src; $('fotos').append(d);
+});
+
+/* rak: ruang kosong setelah tiap bagian, tempat stiker dan label */
+const raks = [...document.querySelector('.wrap').children].map(el => { const r = document.createElement('div'); r.className = 'rak'; el.after(r); return r; });
+
+C.stiker.forEach(([file, r, x, w, y]) => {
+  const s = document.createElement('div'); s.className = 'stk' + (/baked/.test(file) ? ' chip' : ''); s.style.width = w + 'px'; s.style.left = x + '%'; s.style.top = (y || 0) + 'px';
+  const im = new Image(); im.alt = '';
+  im.onload = () => s.append(im);
+  im.onerror = () => { const m = document.createElement('div'); m.className = 'miss'; m.textContent = file; s.append(m); };
+  im.src = file;
+  let sx = 0, sy = 0, tx = 0, ty = 0;
+  s.onpointerdown = e => { sx = e.clientX - tx; sy = e.clientY - ty; s.setPointerCapture(e.pointerId); s.style.zIndex = 9; };
+  s.onpointermove = e => { if (!s.hasPointerCapture(e.pointerId)) return; tx = e.clientX - sx; ty = e.clientY - sy; s.style.transform = `translate(${tx}px,${ty}px)`; };
+  s.onpointerup = () => s.style.zIndex = 3;
+  (raks[r] || raks[0]).append(s);
+});
+
+$('ptj').textContent = C.petunjuk;
+let cur = -1; const tags = [];
+function closeMsg() { $('win').classList.remove('on'); tags.forEach(t => t.classList.remove('act')); cur = -1; }
+function openMsg(i) {
+  if (cur === i) return closeMsg();
+  cur = i; const m = C.pesan[i], b = $('wb'); b.textContent = '';
+  $('wt').textContent = m.ikon + ' ' + m.judul;
+  if (m.awal) { const a = document.createElement('p'); a.className = 'aw'; a.textContent = m.awal; b.append(a); }
+  m.isi.forEach(t => { const p = document.createElement('p'); p.textContent = t; b.append(p); });
+  b.scrollTop = 0; $('win').classList.add('on');
+  tags.forEach((t, k) => t.classList.toggle('act', k === i));
+}
+$('wx').onclick = closeMsg;
+$('win').onclick = e => { if (e.target === $('win')) closeMsg(); };
+C.pesan.forEach((m, i) => {
+  const t = document.createElement('button'); t.className = 'tg script'; t.style.left = m.x + '%';
+  t.innerHTML = '<i></i><span></span>'; t.firstChild.textContent = m.ikon; t.lastChild.textContent = m.judul;
+  t.onclick = () => openMsg(i);
+  (raks[m.rak] || raks[0]).append(t); tags.push(t);
+});
+</script>
+</body>
+</html>
